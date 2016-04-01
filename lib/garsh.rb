@@ -14,6 +14,7 @@ class Garsh
 
   def initialize(code)
     @code = code
+    @adapter = defined?(Typhoeus) ? :typhoeus : Faraday.default_adapter
   end
 
   def create_event(action:, category: "", client_id: "555")
@@ -23,7 +24,7 @@ class Garsh
 
   def send_payload(endpoint, params)
     @http_client ||= Faraday.new(url: GA_ENDPOINT) { |cli|
-      cli.adapter :typhoeus
+      cli.adapter @adapter
       cli.response :logger
     }
     @http_client.get(endpoint, params)
