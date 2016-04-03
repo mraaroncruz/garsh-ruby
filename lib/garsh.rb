@@ -1,6 +1,4 @@
 require "faraday"
-require "typhoeus"
-require "typhoeus/adapters/faraday"
 
 require "garsh/version"
 
